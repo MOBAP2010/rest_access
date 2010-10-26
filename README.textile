@@ -1,0 +1,3 @@
+h1. REST access
+
+* The goal of this project is to access a RESTful server application
