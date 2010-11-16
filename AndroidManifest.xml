@@ -3,8 +3,8 @@
       android:versionCode="1"
       android:versionName="1.0" package="ch.good2go">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-    	<provider 	android:authorities="ch.good2go.restful.DeviceRESTProvider" 
-					android:name="ch.good2go.restful.DeviceRESTProvider"
+    	<provider 	android:authorities="ch.good2go.restful.DeviceRestContentProvider" 
+					android:name="ch.good2go.restful.DeviceRestContentProvider"
 					android:multiprocess="true"/>
         <activity android:name=".RestAccess"
                   android:label="@string/app_name">
@@ -13,6 +13,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-	</application>
+	<service android:name="RestService"></service>
+<provider android:name=".restful.RestProvider"
+		  android:authorities=".restful.RestProvider"></provider>
+</application>
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

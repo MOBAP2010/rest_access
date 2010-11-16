@@ -1,6 +1,6 @@
 package ch.good2go.objects;
 
-import ch.good2go.restful.DeviceRESTProvider;
+import ch.good2go.restful.DeviceRestContentProvider;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -21,7 +21,7 @@ import android.provider.BaseColumns;
 			public static final String LOCATION = "location";
 			public static final String NAME = "name";
 			public static final String CONTENT_TYPE = "application/json";
-			public static final Uri CONTENT_URI = Uri.parse("content://" + DeviceRESTProvider.AUTHORITY + "/devices");
+			public static final Uri CONTENT_URI = Uri.parse("content://" + DeviceRestContentProvider.AUTHORITY + "/devices");
 		}
 
 	}

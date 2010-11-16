@@ -32,14 +32,13 @@ public class RestAccess extends ListActivity {
                 null // Order-by clause (ascending by name)
         );
         startManagingCursor(cur);
-        Log.i(TAG, "go");
+        Log.i(TAG, "Prepare devices to display.");
         SimpleCursorAdapter devices = new SimpleCursorAdapter(	this, 
         														R.layout.device, 
         														cur, 
         														new String[] { Devices.NAME }, 
         														new int[] { R.id.name });
         setListAdapter(devices);
-
 	}
 
 	private void insertRecord(String name, String location) {

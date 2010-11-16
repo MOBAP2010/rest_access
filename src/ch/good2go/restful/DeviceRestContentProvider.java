@@ -6,6 +6,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -16,21 +17,23 @@ import android.net.Uri;
 import android.util.Log;
 import ch.good2go.objects.Device.Devices;
 
-public class DeviceRESTProvider extends ContentProvider {
+public class DeviceRestContentProvider extends ContentProvider {
 	
-    private static final String TAG = "DeviceRESTProvider";
+    private static final String TAG = "DeviceRestContentProvider";
 
     private static final String DATABASE_NAME = "devices";
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String DEVICES_TABLE_NAME = "devices";
 
-    public static final String AUTHORITY = "ch.good2go.restful.DeviceRESTProvider";
+    public static final String AUTHORITY = "ch.good2go.restful.DeviceRestContentProvider";
 
     private static final UriMatcher sUriMatcher;
 
     private static final int DEVICES = 1;
+    
+    private static final String URL = "http://10.0.2.2:3000";
 
     private static HashMap<String, String> devicesProjectionMap;
 
@@ -47,9 +50,17 @@ public class DeviceRESTProvider extends ContentProvider {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
+            initializeFromRestFul();
         }
 
-        @Override
+        private void initializeFromRestFul() {
+			RestServiceHelper helper = new RestServiceHelper();
+			Intent intent = new Intent();
+			intent.setData(Uri.parse(URL + "/devices.json"));
+			//helper.startActivity(intent);
+		}
+
+		@Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion
                     + ", which will destroy all old data");
