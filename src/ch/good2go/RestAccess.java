@@ -19,7 +19,7 @@ public class RestAccess extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.devices);
-        insertRecord("New Device454","cham, pfad");
+        insertRecord("1", "Bad", "Computer");
         displayRecords();
     }
     
@@ -41,10 +41,11 @@ public class RestAccess extends ListActivity {
         setListAdapter(devices);
 	}
 
-	private void insertRecord(String name, String location) {
+	private void insertRecord(String name, String location, String type) {
         ContentValues values = new ContentValues();
         values.put(Devices.NAME, name);
         values.put(Devices.LOCATION, location);
+        values.put(Devices.DEVICE_TYPE, type);
         getContentResolver().insert(Devices.CONTENT_URI, values);
 	}
 

@@ -1,8 +1,11 @@
 package ch.good2go.restful;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,6 +18,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
+import ch.good2go.objects.Device;
 import ch.good2go.objects.Device.Devices;
 
 public class DeviceRestContentProvider extends ContentProvider {
@@ -23,7 +27,7 @@ public class DeviceRestContentProvider extends ContentProvider {
 
     private static final String DATABASE_NAME = "devices";
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     private static final String DEVICES_TABLE_NAME = "devices";
 
@@ -36,13 +40,13 @@ public class DeviceRestContentProvider extends ContentProvider {
     private static final String URL = "http://10.0.2.2:3000";
 
     private static HashMap<String, String> devicesProjectionMap;
-
-    private static class DatabaseHelper extends SQLiteOpenHelper {
+    
+    public static class DatabaseHelper extends SQLiteOpenHelper {
     	
     	private static final String DATABASE_CREATE =
             "create table "+ DATABASE_NAME +" (_id integer primary key autoincrement, "
-            + Devices.NAME + " text not null, "+ Devices.LOCATION +" text not null);";
-
+            + Devices.NAME + " text not null, "+ Devices.LOCATION +" text not null, "+ Devices.DEVICE_TYPE +" text not null);";
+    	    	
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -50,14 +54,17 @@ public class DeviceRestContentProvider extends ContentProvider {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
-            initializeFromRestFul();
+            ArrayList<ContentValues> devices = DeviceProcessor.parseJSON(RESTMethod.get(URL + "/devices.json"));
+            Iterator<ContentValues> it = devices.iterator();
+            do {
+            	String sql = getInsertSQL(it.next());
+            	db.execSQL(sql);
+            } while (it.hasNext());
         }
 
-        private void initializeFromRestFul() {
-			RestServiceHelper helper = new RestServiceHelper();
-			Intent intent = new Intent();
-			intent.setData(Uri.parse(URL + "/devices.json"));
-			//helper.startActivity(intent);
+		private String getInsertSQL(ContentValues next) {
+			return "INSERT INTO devices ("+Devices.NAME+", "+Devices.LOCATION+", "+Devices.DEVICE_TYPE+") " +
+								"values ('"+next.getAsString(Devices.NAME)+"', '"+next.getAsString(Devices.LOCATION)+"', '"+next.getAsString(Devices.DEVICE_TYPE)+"')";
 		}
 
 		@Override
@@ -109,7 +116,8 @@ public class DeviceRestContentProvider extends ContentProvider {
         } else {
             values = new ContentValues();
         }
-
+        String json = DeviceProcessor.toJSON(values);
+        RESTMethod.post(URL+"/devices/create", json);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         long rowId = db.insert(DEVICES_TABLE_NAME, Devices.LOCATION, values);
         if (rowId > 0) {
@@ -117,7 +125,6 @@ public class DeviceRestContentProvider extends ContentProvider {
             getContext().getContentResolver().notifyChange(noteUri, null);
             return noteUri;
         }
-
         throw new SQLException("Failed to insert row into " + uri);
     }
 
@@ -173,6 +180,7 @@ public class DeviceRestContentProvider extends ContentProvider {
         devicesProjectionMap.put(Devices._ID, Devices._ID);
         devicesProjectionMap.put(Devices.NAME, Devices.NAME);
         devicesProjectionMap.put(Devices.LOCATION, Devices.LOCATION);
+        devicesProjectionMap.put(Devices.DEVICE_TYPE, Devices.DEVICE_TYPE);
 
     }
 

@@ -5,7 +5,11 @@ import java.io.IOException;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
@@ -14,7 +18,7 @@ public class RESTMethod {
 	
 	private static String TAG = "RestMethod";
 	
-	public static String GET(String url){
+	public static String get(String url){
 		HttpGet g = new HttpGet(url);
 		HttpEntity entity;
 		try {
@@ -74,4 +78,22 @@ public class RESTMethod {
 		return devices;
 	}
 */
+
+	public static void post(String url, String json) {
+		HttpPost post = new HttpPost(url); 
+		post.setHeader("Accept", "application/json");
+		post.setHeader("Content-type", "application/json");
+		DefaultHttpClient client = new DefaultHttpClient();
+		try {
+			StringEntity se = new StringEntity(json);
+			post.setEntity(se);
+			client.execute(post);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

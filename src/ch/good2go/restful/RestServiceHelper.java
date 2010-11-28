@@ -1,14 +1,25 @@
 package ch.good2go.restful;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.os.Bundle;
 
 public class RestServiceHelper extends Activity {
-		
+	
+	
 	@Override
-	public void startActivity(Intent intent) {
-		RestService service = new RestService();
-		service.startService(intent);
-		super.startActivity(intent);
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+
+	public void upateAllEntries(RestServiceHelper dbHelper) {
+		// TODO Auto-generated method stub
+		
 	}
 }
