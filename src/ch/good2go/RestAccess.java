@@ -19,7 +19,11 @@ public class RestAccess extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.devices);
+<<<<<<< HEAD
         insertRecord("1", "Bad", "Computer");
+=======
+     //   insertRecord("New Device454","cham, pfad");
+>>>>>>> b947ea0a8f90f90536a055c0eb70d049da6d6659
         displayRecords();
     }
     
