@@ -48,7 +48,9 @@ public class DeviceRestContentProvider extends ContentProvider {
             				 					Devices.NAME + " text not null, " + 
             				 					Devices.LOCATION +" text not null, " + 
             				 					Devices.DEVICE_TYPE +" text not null, " +
-            				 					Devices.REST_ID + " integer);";
+            				 					Devices.REST_ID + " integer," +
+            				 					Devices.CREATED_AT + " datetime," +
+            				 					Devices.UPDATED_AT + " datetime );";
     	    	
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,7 +59,8 @@ public class DeviceRestContentProvider extends ContentProvider {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
-            ArrayList<ContentValues> devices = DeviceProcessor.parseJSON(RESTMethod.get(URL + "/devices.json"));
+            String result = RESTMethod.get(URL + "/devices.json");
+            ArrayList<ContentValues> devices = DeviceProcessor.parseJSON(result);
             Iterator<ContentValues> it = devices.iterator();
             do {
             	String sql = getInsertSQL(it.next());
@@ -69,12 +72,17 @@ public class DeviceRestContentProvider extends ContentProvider {
 			return "INSERT INTO devices (" + Devices.NAME + ", " +
 											 Devices.LOCATION + ", " +
 											 Devices.DEVICE_TYPE + ", " +
-											 Devices.REST_ID +
+											 Devices.REST_ID + ", " +
+											 Devices.CREATED_AT + ", " +
+											 Devices.UPDATED_AT + 
 											 ") " +
 								"values ('" + next.getAsString(Devices.NAME) + "', '" + 
 											  next.getAsString(Devices.LOCATION) + "', '" + 
 											  next.getAsString(Devices.DEVICE_TYPE)+"', '" +
-											  next.getAsInteger(Devices.REST_ID) + "')";
+											  next.getAsInteger(Devices.REST_ID) + "', '" +
+											  next.get(Devices.CREATED_AT) + "', '" +
+											  next.get(Devices.UPDATED_AT) + "'" +
+										")";
 		}
 
 		@Override
