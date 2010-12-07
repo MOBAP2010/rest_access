@@ -42,12 +42,7 @@ public class DeviceEdit extends Activity {
 	    confirmButton.setOnClickListener(new View.OnClickListener() {
 
 	        public void onClick(View view) {
-	        	String s = nameText.getText().toString();
-	        	String ss= spinner.getSelectedItem().toString();
-	        	String sss=typeText.getText().toString();
-	        	s=s;
 	        	insertRecord(nameText.getText().toString(), spinner.getSelectedItem().toString(), typeText.getText().toString());
-
 	            Intent mIntent = new Intent();
 	            setResult(RESULT_OK, mIntent);
 	            finish();
