@@ -24,7 +24,7 @@ public class DeviceEdit extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.device_edit);
 
-	    nameText = (EditText) findViewById(R.id.name);
+	    nameText = (EditText) findViewById(R.id.device_name);
 	    typeText = (EditText) findViewById(R.id.type);
 	    
 
@@ -42,7 +42,11 @@ public class DeviceEdit extends Activity {
 	    confirmButton.setOnClickListener(new View.OnClickListener() {
 
 	        public void onClick(View view) {
-	        	insertRecord(nameText.toString(), (String)spinner.getSelectedItem(), typeText.toString());
+	        	String s = nameText.getText().toString();
+	        	String ss= spinner.getSelectedItem().toString();
+	        	String sss=typeText.getText().toString();
+	        	s=s;
+	        	insertRecord(nameText.getText().toString(), spinner.getSelectedItem().toString(), typeText.getText().toString());
 
 	            Intent mIntent = new Intent();
 	            setResult(RESULT_OK, mIntent);

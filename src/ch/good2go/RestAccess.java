@@ -1,8 +1,6 @@
 package ch.good2go;
 
-import android.app.Activity;
 import android.app.ListActivity;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +18,7 @@ public class RestAccess extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.devices);
-        //displayRecords();
+        displayRecords();
     }
    
     private void displayRecords() {
