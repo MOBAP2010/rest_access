@@ -27,7 +27,7 @@ public class DeviceRestContentProvider extends ContentProvider {
 
     private static final String DATABASE_NAME = "devices";
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     private static final String DEVICES_TABLE_NAME = "devices";
 
@@ -44,8 +44,11 @@ public class DeviceRestContentProvider extends ContentProvider {
     public static class DatabaseHelper extends SQLiteOpenHelper {
     	
     	private static final String DATABASE_CREATE =
-            "create table "+ DATABASE_NAME +" (_id integer primary key autoincrement, "
-            + Devices.NAME + " text not null, "+ Devices.LOCATION +" text not null, "+ Devices.DEVICE_TYPE +" text not null);";
+            "create table "+ DATABASE_NAME +" (	_id integer primary key autoincrement, " + 
+            				 					Devices.NAME + " text not null, " + 
+            				 					Devices.LOCATION +" text not null, " + 
+            				 					Devices.DEVICE_TYPE +" text not null, " +
+            				 					Devices.REST_ID + " integer);";
     	    	
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -63,8 +66,15 @@ public class DeviceRestContentProvider extends ContentProvider {
         }
 
 		private String getInsertSQL(ContentValues next) {
-			return "INSERT INTO devices ("+Devices.NAME+", "+Devices.LOCATION+", "+Devices.DEVICE_TYPE+") " +
-								"values ('"+next.getAsString(Devices.NAME)+"', '"+next.getAsString(Devices.LOCATION)+"', '"+next.getAsString(Devices.DEVICE_TYPE)+"')";
+			return "INSERT INTO devices (" + Devices.NAME + ", " +
+											 Devices.LOCATION + ", " +
+											 Devices.DEVICE_TYPE + ", " +
+											 Devices.REST_ID +
+											 ") " +
+								"values ('" + next.getAsString(Devices.NAME) + "', '" + 
+											  next.getAsString(Devices.LOCATION) + "', '" + 
+											  next.getAsString(Devices.DEVICE_TYPE)+"', '" +
+											  next.getAsInteger(Devices.REST_ID) + "')";
 		}
 
 		@Override
@@ -180,6 +190,7 @@ public class DeviceRestContentProvider extends ContentProvider {
         devicesProjectionMap.put(Devices._ID, Devices._ID);
         devicesProjectionMap.put(Devices.NAME, Devices.NAME);
         devicesProjectionMap.put(Devices.LOCATION, Devices.LOCATION);
+        devicesProjectionMap.put(Devices.REST_ID, Devices.REST_ID);
         devicesProjectionMap.put(Devices.DEVICE_TYPE, Devices.DEVICE_TYPE);
 
     }

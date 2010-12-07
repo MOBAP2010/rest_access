@@ -64,6 +64,9 @@ public class Device {
 		public static final String LOCATION = "location";
 		public static final String NAME = "name";
 		public static final String DEVICE_TYPE = "device_type";
+		public static final String REST_ID = "rest_id";
+		public static final String UPDATED_AT = "updated_at";
+		public static final String CREATED_AT = "created_at";
 		public static final String CONTENT_TYPE = "application/json";
 		public static final Uri CONTENT_URI = Uri.parse("content://" + DeviceRestContentProvider.AUTHORITY + "/devices");
 	}
