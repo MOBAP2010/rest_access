@@ -1,5 +1,6 @@
 package ch.good2go;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -19,9 +20,9 @@ public class RestAccess extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.devices);
-        displayRecords();
+        //displayRecords();
     }
-    
+   
     private void displayRecords() {
         // An array specifying which columns to return.
         Cursor cur = managedQuery(Devices.CONTENT_URI, 
@@ -40,13 +41,6 @@ public class RestAccess extends ListActivity {
         setListAdapter(devices);
 	}
 
-	private void insertRecord(String name, String location, String type) {
-        ContentValues values = new ContentValues();
-        values.put(Devices.NAME, name);
-        values.put(Devices.LOCATION, location);
-        values.put(Devices.DEVICE_TYPE, type);
-        getContentResolver().insert(Devices.CONTENT_URI, values);
-	}
 
 	public void getRessource(View view){
 		//RESTMethod.GET(testUrlRessources);

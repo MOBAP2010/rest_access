@@ -2,9 +2,18 @@
 <resources>    
     <string name="app_name">First access to RESTful</string>
     <string name="start">start</string>
-    <string name="no_devices">keine Device vorhanden</string>
+    <string name="no_devices">keine Geräte vorhanden</string>
     <string name="device_name">Name</string>
     <string name="device_location">Location</string>
     <string name="confirm_device">confirm</string>
     <string name="menu_insert_device">insert device</string>
+<string name="no_locations">Keine Räume eingerichtet</string>
+<string name="menu_insert">Device hinzufügen</string>
+<string name="location_prompt">Wähle den Standort</string>
+    <string-array name="location_array">
+        <item>Wohnzimmer</item>
+        <item>Schlafzimmer</item>
+        <item>Küche</item>
+    </string-array>
+
 </resources>

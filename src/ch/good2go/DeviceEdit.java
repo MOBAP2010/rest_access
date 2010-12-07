@@ -1,18 +1,23 @@
 package ch.good2go;
 
 
+import ch.good2go.objects.Device.Devices;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class DeviceEdit extends Activity {
 	
 	private EditText nameText;
-	private EditText locationText;
+	private EditText typeText;
 	private Long mRowId;
+	private Spinner spinner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,43 +25,40 @@ public class DeviceEdit extends Activity {
 	    setContentView(R.layout.device_edit);
 
 	    nameText = (EditText) findViewById(R.id.name);
-	    locationText = (EditText) findViewById(R.id.location);
+	    typeText = (EditText) findViewById(R.id.type);
+	    
 
 	    Button confirmButton = (Button) findViewById(R.id.confirm);
 
 	    mRowId = null;
-	    Bundle extras = getIntent().getExtras();
-	    if (extras != null) {
-	        String name = extras.getString(DevicesDbHelper.KEY_NAME);
-	        String location = extras.getString(DevicesDbHelper.KEY_LOCATION);
-	        mRowId = extras.getLong(DevicesDbHelper.KEY_ROWID);
+        spinner = (Spinner) findViewById(R.id.location);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.location_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
-	        if (name != null) {
-	            nameText.setText(name);
-	        }
-	        if (location != null) {
-	            locationText.setText(location);
-	        }
-	    }
+	    
 
 	    confirmButton.setOnClickListener(new View.OnClickListener() {
 
 	        public void onClick(View view) {
-	            Bundle bundle = new Bundle();
-
-	            bundle.putString(DevicesDbHelper.KEY_NAME, nameText.getText().toString());
-	            bundle.putString(DevicesDbHelper.KEY_LOCATION, locationText.getText().toString());
-	            if (mRowId != null) {
-	                bundle.putLong(DevicesDbHelper.KEY_ROWID, mRowId);
-	            }
+	        	insertRecord(nameText.toString(), (String)spinner.getSelectedItem(), typeText.toString());
 
 	            Intent mIntent = new Intent();
-	            mIntent.putExtras(bundle);
 	            setResult(RESULT_OK, mIntent);
 	            finish();
 	        }
+	        
 	    });
 
+	}
+	
+	private void insertRecord(String name, String location, String type) {
+        ContentValues values = new ContentValues();
+        values.put(Devices.NAME, name);
+        values.put(Devices.LOCATION, location);
+        values.put(Devices.DEVICE_TYPE, type);
+        getContentResolver().insert(Devices.CONTENT_URI, values);
 	}
 
 }

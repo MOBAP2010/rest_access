@@ -11,20 +11,41 @@
 
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
-			android:text="@string/device_name" />
-		<EditText android:id="@+id/title" 
+			android:text="Name" />
+		<EditText android:id="@+id/device_name" 
 		  android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:layout_weight="1"/>
 	</LinearLayout>
 
-	<TextView android:layout_width="wrap_content"
-		android:layout_height="wrap_content" 
-		android:text="@string/device_location" />
-	<EditText android:id="@+id/location" android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight="1"
-		android:scrollbars="vertical" />
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:text="Art" />
+		<EditText android:id="@+id/type" 
+		  android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_weight="1"/>
+	</LinearLayout>
+
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:text="Ort" />
+		<Spinner 
+        android:id="@+id/location"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/location_prompt"
+		/>
+
+	</LinearLayout>
 	
 	<Button android:id="@+id/confirm" 
 	  android:text="@string/confirm_device"
