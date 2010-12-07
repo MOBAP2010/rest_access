@@ -22,6 +22,8 @@ public class DeviceProcessor {
 		        e.put(Devices.LOCATION, jEvent.getString("location"));
 		        e.put(Devices.DEVICE_TYPE, jEvent.getString("device_type"));
 		        e.put(Devices.REST_ID, jEvent.getInt("id"));
+		        e.put(Devices.CREATED_AT, jEvent.getString("created_at"));
+		        e.put(Devices.UPDATED_AT, jEvent.getString("updated_at"));
 				devices.add(e);
 			}
 			return devices;
