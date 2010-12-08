@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
 
-public class home extends TabActivity{
+public class Home extends TabActivity{
     private static final int INSERT_ID = Menu.FIRST;
     private static final int ACTIVITY_CREATE=0;
 	
@@ -31,9 +31,7 @@ public class home extends TabActivity{
 	    	intent.putExtra("where", locations[i]);
 
 		    // Initialize a TabSpec for each tab and add it to the TabHost
-		    spec = tabHost.newTabSpec(locations[i]).setIndicator(locations[i],
-		                      res.getDrawable(R.drawable.home_white))
-		                  .setContent(intent);
+		    spec = tabHost.newTabSpec(locations[i]).setIndicator(locations[i], res.getDrawable(R.drawable.home_white)).setContent(intent);
 		    tabHost.addTab(spec);
 	    }
 
