@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
 
-public class home extends TabActivity{
+public class Home extends TabActivity{
     private static final int INSERT_ID = Menu.FIRST;
     private static final int ACTIVITY_CREATE=0;
 	
