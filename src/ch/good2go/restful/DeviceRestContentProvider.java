@@ -5,11 +5,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -18,7 +16,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
-import ch.good2go.objects.Device;
 import ch.good2go.objects.Device.Devices;
 
 public class DeviceRestContentProvider extends ContentProvider {
@@ -108,7 +105,7 @@ public class DeviceRestContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
-
+        // TODO: REST-Method for delete must be here implemented.
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
@@ -154,7 +151,7 @@ public class DeviceRestContentProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+    	SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
         switch (sUriMatcher.match(uri)) {
             case DEVICES:
@@ -185,7 +182,7 @@ public class DeviceRestContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
-
+        // TODO: REST-Method for update must be here implemented.
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
@@ -193,14 +190,13 @@ public class DeviceRestContentProvider extends ContentProvider {
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(AUTHORITY, DATABASE_NAME, DEVICES);
-
+        
         devicesProjectionMap = new HashMap<String, String>();
         devicesProjectionMap.put(Devices._ID, Devices._ID);
         devicesProjectionMap.put(Devices.NAME, Devices.NAME);
         devicesProjectionMap.put(Devices.LOCATION, Devices.LOCATION);
         devicesProjectionMap.put(Devices.REST_ID, Devices.REST_ID);
         devicesProjectionMap.put(Devices.DEVICE_TYPE, Devices.DEVICE_TYPE);
-
     }
 
 
