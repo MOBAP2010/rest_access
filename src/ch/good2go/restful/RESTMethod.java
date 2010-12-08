@@ -3,6 +3,7 @@ package ch.good2go.restful;
 import java.io.IOException;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -10,6 +11,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import android.content.ContentValues;
 import android.util.Log;
 
 public class RESTMethod {
@@ -32,7 +34,8 @@ public class RESTMethod {
 		return "";
 	}
 
-	public static void post(String url, String json) {
+	public static String post(String url, String json) {
+		String updatedValues = "";
 		HttpPost post = new HttpPost(url); 
 		post.setHeader("Accept", "application/json");
 		post.setHeader("Content-type", "application/json");
@@ -40,11 +43,13 @@ public class RESTMethod {
 		try {
 			StringEntity se = new StringEntity(json);
 			post.setEntity(se);
-			client.execute(post);
+			HttpResponse response = client.execute(post);
+			updatedValues = EntityUtils.toString(response.getEntity());
 		} catch (ClientProtocolException e) {
 			Log.i(TAG, "HTTP-Request POST to:" + url + " failed.");
 		} catch (IOException e) {
 			Log.i(TAG, "HTTP-Request POST to:" + url + " failed.");
 		}
+		return updatedValues;
 	}
 }

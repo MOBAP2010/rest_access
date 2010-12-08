@@ -57,7 +57,7 @@ public class DeviceRestContentProvider extends ContentProvider {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
             String result = RESTMethod.get(URL + "/devices.json");
-            ArrayList<ContentValues> devices = DeviceProcessor.parseJSON(result);
+            ArrayList<ContentValues> devices = DeviceProcessor.parseJSONArray(result);
             Iterator<ContentValues> it = devices.iterator();
             do {
             	String sql = getInsertSQL(it.next());
@@ -132,7 +132,10 @@ public class DeviceRestContentProvider extends ContentProvider {
             values = new ContentValues();
         }
         String json = DeviceProcessor.toJSON(values);
-        RESTMethod.post(URL+"/devices/create", json);
+        String response = RESTMethod.post(URL+"/devices/create", json);
+        if(!"".equals(response)){
+        	values = DeviceProcessor.parseJSON(response);
+        }
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         long rowId = db.insert(DEVICES_TABLE_NAME, Devices.LOCATION, values);
         if (rowId > 0) {
