@@ -28,12 +28,12 @@ public class Home extends TabActivity{
 	    //create one tab per location
 	    for(int i=0; i<locations.length; i++)
 	    {
-	    	intent.putExtra("where", locations[i]);
+	    	intent.putExtra("location", locations[i]);
 
 		    // Initialize a TabSpec for each tab and add it to the TabHost
 		    spec = tabHost.newTabSpec(locations[i]);
 		    spec.setIndicator(locations[i],
-		                      res.getDrawable(R.drawable.location_tab))
+		                      res.getDrawable(R.drawable.ic_menu_home))
 		                      .setContent(intent);
 		    tabHost.addTab(spec);
 	    }

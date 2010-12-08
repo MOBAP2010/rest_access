@@ -19,8 +19,8 @@ public class RestAccess extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.devices);
         Bundle extras = getIntent().getExtras();
-        String where = extras.getString("where");
-        displayRecords(where);
+        String location = extras.getString("location");
+        displayRecords(location);
     }
    
     private void displayRecords(String where) {
