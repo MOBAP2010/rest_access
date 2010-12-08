@@ -24,7 +24,7 @@
 
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
-			android:text="Art" />
+			android:text="Art " />
 		<EditText android:id="@+id/type" 
 		  android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
@@ -37,7 +37,7 @@
 
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
-			android:text="Ort" />
+			android:text="Ort " />
 		<Spinner 
         android:id="@+id/location"
         android:layout_width="fill_parent"

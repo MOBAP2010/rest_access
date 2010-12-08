@@ -18,15 +18,17 @@ public class RestAccess extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.devices);
-        displayRecords();
+        Bundle extras = getIntent().getExtras();
+        String where = extras.getString("where");
+        displayRecords(where);
     }
    
-    private void displayRecords() {
+    private void displayRecords(String where) {
         // An array specifying which columns to return.
         Cursor cur = managedQuery(Devices.CONTENT_URI, 
         		new String[] { Devices._ID, Devices.NAME, Devices.LOCATION }, // Which columns to return
-                null, // WHERE clause; which rows to return(all rows)
-                null, // WHERE clause selection arguments (none)
+                Devices.LOCATION + "= ?", // WHERE clause; which rows to return(all rows)
+                new String[]{where}, // WHERE clause selection arguments (none)
                 null // Order-by clause (ascending by name)
         );
         startManagingCursor(cur);

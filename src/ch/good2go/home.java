@@ -18,30 +18,24 @@ public class home extends TabActivity{
 
 	    Resources res = getResources(); // Resource object to get Drawables
 	    TabHost tabHost = getTabHost();  // The activity TabHost
-	    TabHost.TabSpec spec;  // Resusable TabSpec for each tab
+	    TabHost.TabSpec spec;  // Reusable TabSpec for each tab
 	    Intent intent;  // Reusable Intent for each tab
 
 	    // Create an Intent to launch an Activity for the tab (to be reused)
 	    intent = new Intent().setClass(this, RestAccess.class);
+	    //get all locations from resource
+	    String[] locations = res.getStringArray(R.array.location_array);
+	    //create one tab per location
+	    for(int i=0; i<locations.length; i++)
+	    {
+	    	intent.putExtra("where", locations[i]);
 
-	    // Initialize a TabSpec for each tab and add it to the TabHost
-	    spec = tabHost.newTabSpec("Wohnzimmer").setIndicator("Wohnzimmer",
-	                      res.getDrawable(R.drawable.home_white))
-	                  .setContent(intent);
-	    tabHost.addTab(spec);
-
-	    // Do the same for the other tabs
-	    intent = new Intent().setClass(this, RestAccess.class);
-	    spec = tabHost.newTabSpec("Schlafzimmer").setIndicator("Schlafzimmer",
-	                      res.getDrawable(R.drawable.home_white))
-	                  .setContent(intent);
-	    tabHost.addTab(spec);
-
-	    intent = new Intent().setClass(this, RestAccess.class);
-	    spec = tabHost.newTabSpec("Küche").setIndicator("Küche",
-	                      res.getDrawable(R.drawable.home_white))
-	                  .setContent(intent);
-	    tabHost.addTab(spec);
+		    // Initialize a TabSpec for each tab and add it to the TabHost
+		    spec = tabHost.newTabSpec(locations[i]).setIndicator(locations[i],
+		                      res.getDrawable(R.drawable.home_white))
+		                  .setContent(intent);
+		    tabHost.addTab(spec);
+	    }
 
 	    tabHost.setCurrentTab(2);
 	}
