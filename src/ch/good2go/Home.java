@@ -31,7 +31,10 @@ public class Home extends TabActivity{
 	    	intent.putExtra("where", locations[i]);
 
 		    // Initialize a TabSpec for each tab and add it to the TabHost
-		    spec = tabHost.newTabSpec(locations[i]).setIndicator(locations[i], res.getDrawable(R.drawable.home_white)).setContent(intent);
+		    spec = tabHost.newTabSpec(locations[i]);
+		    spec.setIndicator(locations[i],
+		                      res.getDrawable(R.drawable.location_tab))
+		                      .setContent(intent);
 		    tabHost.addTab(spec);
 	    }
 
@@ -55,7 +58,7 @@ public class Home extends TabActivity{
 			}
 	        return super.onOptionsItemSelected(item);
 	    }
-	    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+/*	    public boolean onMenuItemSelected(int featureId, MenuItem item) {
 	        switch(item.getItemId()) {
 	            case INSERT_ID:
 	                createDevice();
@@ -63,7 +66,7 @@ public class Home extends TabActivity{
 	        }
 
 	        return super.onMenuItemSelected(featureId, item);
-	    }
+	    }*/
 		private void createDevice() {
 			Intent i = new Intent(this, DeviceEdit.class);
 	        startActivityForResult(i, ACTIVITY_CREATE);
