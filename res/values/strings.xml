@@ -5,7 +5,7 @@
     <string name="no_devices">keine Geräte vorhanden</string>
     <string name="device_name">Name</string>
     <string name="device_location">Location</string>
-    <string name="confirm_device">confirm</string>
+    <string name="confirm_device">erstellen</string>
     <string name="menu_insert_device">insert device</string>
 	<string name="no_locations">Keine Räume eingerichtet</string>
 	<string name="menu_insert">Device hinzufügen</string>
