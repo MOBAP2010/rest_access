@@ -99,13 +99,16 @@ public class DeviceRestContentProvider extends ContentProvider {
         int count;
         switch (sUriMatcher.match(uri)) {
             case DEVICES:
-                count = db.delete(DEVICES_TABLE_NAME, where, whereArgs);
+            	if(RESTMethod.delete(URL+"/devices/" + getRestId(uri))){
+            		count = db.delete(DEVICES_TABLE_NAME, where, whereArgs);
+            	}else{
+            		count = 0;
+            	}
                 break;
 
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
-        // TODO: REST-Method for delete must be here implemented.
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
@@ -177,6 +180,11 @@ public class DeviceRestContentProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String where, String[] whereArgs) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int count;
+        String json = DeviceProcessor.toJSON(values);
+        String response = RESTMethod.put(URL+"/devices/" + getRestId(uri), json);
+        if(!"".equals(response)){
+        	values = DeviceProcessor.parseJSON(response);
+        }
         switch (sUriMatcher.match(uri)) {
             case DEVICES:
                 count = db.update(DEVICES_TABLE_NAME, values, where, whereArgs);
@@ -188,6 +196,10 @@ public class DeviceRestContentProvider extends ContentProvider {
         // TODO: REST-Method for update must be here implemented.
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
+    }
+    
+    private int getRestId(Uri uri){
+    	return Integer.parseInt( uri.getPathSegments().get(0));
     }
 
     static {
