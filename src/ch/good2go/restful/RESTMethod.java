@@ -25,11 +25,9 @@ public class RESTMethod {
 			Log.i(TAG, response);
 			return response;
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.i(TAG, "HTTP-Request GET to:" + url + " failed.");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.i(TAG, "HTTP-Request GET to:" + url + " failed.");
 		}	
 		return "";
 	}
@@ -44,11 +42,9 @@ public class RESTMethod {
 			post.setEntity(se);
 			client.execute(post);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.i(TAG, "HTTP-Request POST to:" + url + " failed.");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.i(TAG, "HTTP-Request POST to:" + url + " failed.");
 		}
 	}
 }
