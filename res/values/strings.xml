@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>    
-    <string name="app_name">First access to RESTful</string>
+    <string name="app_name">Device Controller</string>
     <string name="start">start</string>
     <string name="no_devices">keine Geräte vorhanden</string>
     <string name="device_name">Name</string>

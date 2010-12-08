@@ -21,13 +21,13 @@ public class Home extends TabActivity{
 	    TabHost.TabSpec spec;  // Reusable TabSpec for each tab
 	    Intent intent;  // Reusable Intent for each tab
 
-	    // Create an Intent to launch an Activity for the tab (to be reused)
-	    intent = new Intent().setClass(this, RestAccess.class);
 	    //get all locations from resource
 	    String[] locations = res.getStringArray(R.array.location_array);
 	    //create one tab per location
 	    for(int i=0; i<locations.length; i++)
 	    {
+	    	// Create an Intent to launch an Activity for the tab
+		    intent = new Intent().setClass(this, RestAccess.class);
 	    	intent.putExtra("location", locations[i]);
 
 		    // Initialize a TabSpec for each tab and add it to the TabHost
@@ -38,7 +38,7 @@ public class Home extends TabActivity{
 		    tabHost.addTab(spec);
 	    }
 
-	    tabHost.setCurrentTab(2);
+	    tabHost.setCurrentTab(0);
 	}
 	    @Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
