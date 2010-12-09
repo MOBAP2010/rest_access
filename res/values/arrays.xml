@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="device_type_array">
+        <item>Electrisches Geraet</item>
+        <item>Multimedia</item>
+        <item>Licht</item>
+        <item>Computer</item>
+    </string-array>
+    <string-array name="location_array">
+        <item>Wohnzimmer</item>
+        <item>Schlafzimmer</item>
+        <item>Kueche</item>
+    </string-array>
+</resources>
