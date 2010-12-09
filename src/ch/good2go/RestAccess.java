@@ -2,7 +2,6 @@ package ch.good2go;
 
 import android.app.ListActivity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +12,9 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.SimpleCursorAdapter.CursorToStringConverter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import ch.good2go.objects.Device.Devices;
 
@@ -35,19 +34,19 @@ public class RestAccess extends ListActivity {
         Bundle extras = getIntent().getExtras();
         mlocation = extras.getString("location");
         displayRecords(mlocation);
-        registerForContextMenu(getListView());
         
-/*        CheckBox power = (CheckBox) findViewById(R.id.power);
-        power.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				updateRecord(new String[]{"1"}, isChecked);
-			}
-		});*/
+        registerForContextMenu(getListView());
     }
    
-    private void displayRecords(String where) {
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		CheckBox cb = ((CheckBox)v.findViewById(R.id.power));
+		cb.setChecked(!cb.isChecked());
+		updateDevice(id, cb.isChecked());
+	}
+
+	private void displayRecords(String where) {
         // An array specifying which columns to return.
         Cursor cur = managedQuery(Devices.CONTENT_URI, 
         		new String[] { Devices._ID, Devices.NAME, Devices.LOCATION, Devices.DEVICE_TYPE, Devices.POWER }, // Which columns to return
@@ -97,17 +96,18 @@ public class RestAccess extends ListActivity {
 					return false;
 			}
 		});
+        
         setListAdapter(devices);
 	}
 
-/*	private void updateDevice(long id, boolean power) {
+	private void updateDevice(long id, boolean power) {
         ContentValues values = new ContentValues();
         values.put(Devices.POWER, power);
-        getContentResolver().update(Devices.CONTENT_URI, values, "id="+id, null);
+        //getContentResolver().update(Devices.CONTENT_URI, values, "id="+id, null);
 	}
 	
 	private void deleteDevice(long id) {
-        getContentResolver().delete(Devices.CONTENT_URI, "id="+id, null);
+        //getContentResolver().delete(Devices.CONTENT_URI, "id="+id, null);
 	}
     
     @Override
@@ -129,8 +129,4 @@ public class RestAccess extends ListActivity {
         }
         return super.onContextItemSelected(item);
     }
-
-	public void getRessource(View view){
-		//RESTMethod.GET(testUrlRessources);
-    }*/
 }

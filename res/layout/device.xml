@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/row1"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:clickable="true"
-	android:isScrollContainer="true"
 	android:orientation="horizontal">
     <CheckBox android:id="@+id/power"
+    	android:focusable="false"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
         android:gravity="right"
         android:padding="3dip" />
 	<ImageView android:id="@+id/type_icon"
+    	android:focusable="false"
+    	android:clickable="false"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:src="@drawable/ic_flash"
@@ -21,8 +21,4 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="fill_parent"
 	    android:padding="3dip"/>
-	<TextView android:id="@+id/type"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:padding="3dip"/>
 </LinearLayout>
