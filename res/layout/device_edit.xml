@@ -48,7 +48,10 @@
 		/>
 
 	</LinearLayout>
-	
+	<CheckBox android:id="@+id/poweron"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="An"/>
 	<Button android:id="@+id/confirm" 
 	  android:text="@string/confirm_device"
 		android:layout_width="wrap_content"

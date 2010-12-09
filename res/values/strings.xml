@@ -11,16 +11,5 @@
 	<string name="menu_insert">Device hinzufügen</string>
 	<string name="menu_delete">Device löschen</string>
 	<string name="location_prompt">Wähle den Standort</string>
-    <string-array name="location_array">
-        <item>Wohnzimmer</item>
-        <item>Schlafzimmer</item>
-        <item>Kueche</item>
-    </string-array>
-	<string name="type_prompt">Wähle den typen</string>
-    <string-array name="device_type_array">
-        <item>Electrisches Geraet</item>
-        <item>Multimedia</item>
-        <item>Licht</item>
-        <item>Computer</item>
-    </string-array>
+	<string name="type_prompt">Wähle Gerätetyp</string>
 </resources>

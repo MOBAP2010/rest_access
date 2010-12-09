@@ -88,7 +88,8 @@ public class RestAccess extends ListActivity {
 					return true;
 				}
 				else if (columnIndex==4){
-					boolean power = (cursor.getInt(columnIndex)==0)?false:true;
+					int value = cursor.getInt(columnIndex);
+					boolean power = (value==0)?false:true;
 					((CheckBox)view).setChecked(power);
 					return true;
 				}

@@ -59,6 +59,8 @@ public class DeviceRestContentProvider extends ContentProvider {
             db.execSQL(DATABASE_CREATE);
             String result = RESTMethod.get(URL + "/devices.json");
             ArrayList<ContentValues> devices = DeviceProcessor.parseJSONArray(result);
+            if(devices==null)
+            	return;	//server has no data
             Iterator<ContentValues> it = devices.iterator();
             do {
             	String sql = getInsertSQL(it.next());

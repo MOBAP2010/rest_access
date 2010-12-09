@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -36,7 +37,8 @@ public class DeviceEdit extends Activity {
 	        		return;
 	        	}
 	        	insertRecord(name, ((Spinner)findViewById(R.id.location)).getSelectedItem().toString(), 
-	        				((Spinner)findViewById(R.id.type)).getSelectedItem().toString());
+	        				((Spinner)findViewById(R.id.type)).getSelectedItem().toString(),
+	        				((CheckBox)findViewById(R.id.poweron)).isChecked());
 	            Intent mIntent = new Intent();
 	            setResult(RESULT_OK, mIntent);
 	            finish();
@@ -46,11 +48,12 @@ public class DeviceEdit extends Activity {
 
 	}
 	
-	private void insertRecord(String name, String location, String type) {
+	private void insertRecord(String name, String location, String type, boolean power) {
         ContentValues values = new ContentValues();
         values.put(Devices.NAME, name);
         values.put(Devices.LOCATION, location);
         values.put(Devices.DEVICE_TYPE, type);
+        values.put(Devices.POWER, power);
         getContentResolver().insert(Devices.CONTENT_URI, values);
 	}
 
