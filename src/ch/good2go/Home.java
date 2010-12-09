@@ -67,7 +67,8 @@ public class Home extends TabActivity{
 
 	        return super.onMenuItemSelected(featureId, item);
 	    }*/
-		private void createDevice() {
+
+	    private void createDevice() {
 			Intent i = new Intent(this, DeviceEdit.class);
 	        startActivityForResult(i, ACTIVITY_CREATE);
 	    }

@@ -24,7 +24,7 @@ public class DeviceRestContentProvider extends ContentProvider {
 
     private static final String DATABASE_NAME = "devices";
 
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     private static final String DEVICES_TABLE_NAME = "devices";
 
@@ -34,7 +34,7 @@ public class DeviceRestContentProvider extends ContentProvider {
 
     private static final int DEVICES = 1;
     
-    private static final String URL = "http://10.0.2.2:3000";
+    private static final String URL = "http://good2go.ch";
 
     private static HashMap<String, String> devicesProjectionMap;
     
@@ -45,6 +45,7 @@ public class DeviceRestContentProvider extends ContentProvider {
             				 					Devices.NAME + " text not null, " + 
             				 					Devices.LOCATION +" text not null, " + 
             				 					Devices.DEVICE_TYPE +" text not null, " +
+            				 					Devices.POWER + " integer, " +
             				 					Devices.REST_ID + " integer," +
             				 					Devices.CREATED_AT + " datetime," +
             				 					Devices.UPDATED_AT + " datetime );";
@@ -69,6 +70,7 @@ public class DeviceRestContentProvider extends ContentProvider {
 			return "INSERT INTO devices (" + Devices.NAME + ", " +
 											 Devices.LOCATION + ", " +
 											 Devices.DEVICE_TYPE + ", " +
+											 Devices.POWER +  ", " +
 											 Devices.REST_ID + ", " +
 											 Devices.CREATED_AT + ", " +
 											 Devices.UPDATED_AT + 
@@ -76,6 +78,7 @@ public class DeviceRestContentProvider extends ContentProvider {
 								"values ('" + next.getAsString(Devices.NAME) + "', '" + 
 											  next.getAsString(Devices.LOCATION) + "', '" + 
 											  next.getAsString(Devices.DEVICE_TYPE)+"', '" +
+											  next.getAsInteger(Devices.POWER)+"', '" +
 											  next.getAsInteger(Devices.REST_ID) + "', '" +
 											  next.get(Devices.CREATED_AT) + "', '" +
 											  next.get(Devices.UPDATED_AT) + "'" +

@@ -34,6 +34,7 @@ public class DeviceProcessor {
         e.put(Devices.NAME, json.getString("name"));
         e.put(Devices.LOCATION, json.getString("location"));
         e.put(Devices.DEVICE_TYPE, json.getString("device_type"));
+        e.put(Devices.POWER, json.getBoolean("power"));
         e.put(Devices.REST_ID, json.getInt("id"));
         e.put(Devices.CREATED_AT, json.getString("created_at"));
         e.put(Devices.UPDATED_AT, json.getString("updated_at"));
@@ -58,6 +59,7 @@ public class DeviceProcessor {
 			device.putOpt(Devices.NAME, values.get(Devices.NAME));
 			device.putOpt(Devices.LOCATION, values.get(Devices.LOCATION));
 			device.putOpt(Devices.DEVICE_TYPE, values.get(Devices.DEVICE_TYPE));
+			device.putOpt(Devices.POWER, values.get(Devices.POWER));
 			root.put("device", device);
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -11,15 +11,17 @@ public class Device {
 	private String name;
 	private String location;
 	private String device_type;
+	private boolean power;
 	
 	public Device(){
 		
 	}
-	public Device(int id, String name, String location, String device_type) {
+	public Device(int id, String name, String location, String device_type, boolean power) {
 		this.setId(id);
 		this.setName(name);
 		this.setLocation(location);
 		this.setDevice_type(device_type);
+		this.setPower(power);
 	}
 
 	public void setId(int id) {
@@ -54,6 +56,13 @@ public class Device {
 		return device_type;
 	}
 
+	public void setPower(boolean power) {
+		this.power = power;
+	}
+	public boolean getPower() {
+		return power;
+	}
+
 	public static final class Devices implements BaseColumns {
 		
 		private Devices() {
@@ -63,6 +72,7 @@ public class Device {
 		public static final String DEVICE_ID = "_id";
 		public static final String LOCATION = "location";
 		public static final String NAME = "name";
+		public static final String POWER = "power";
 		public static final String DEVICE_TYPE = "device_type";
 		public static final String REST_ID = "rest_id";
 		public static final String UPDATED_AT = "updated_at";
