@@ -204,7 +204,8 @@ public class DeviceRestContentProvider extends ContentProvider {
     }
     
     private int getRestId(Uri uri){
-    	return Integer.parseInt( uri.getPathSegments().get(0));
+    	String sId = uri.getPathSegments().get(0);   	
+    	return Integer.parseInt(sId);
     }
 
     static {

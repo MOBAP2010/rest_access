@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import ch.good2go.objects.Device.Devices;
@@ -43,7 +44,9 @@ public class RestAccess extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 		CheckBox cb = ((CheckBox)v.findViewById(R.id.power));
 		cb.setChecked(!cb.isChecked());
-		updateDevice(id, cb.isChecked());
+		//get value of invisible id view
+		TextView tvId = ((TextView)v.findViewById(R.id.rowid));
+		updateDevice(Long.parseLong(tvId.getText().toString()), cb.isChecked());
 	}
 
 	private void displayRecords(String where) {
@@ -59,8 +62,8 @@ public class RestAccess extends ListActivity {
         SimpleCursorAdapter devices = new SimpleCursorAdapter(	this, 
         														R.layout.device, 
         														cur, 
-        														new String[] { Devices.NAME, Devices.DEVICE_TYPE, Devices.POWER}, 
-        														new int[] { R.id.name, R.id.type_icon,  R.id.power});
+        														new String[] { Devices.NAME, Devices.DEVICE_TYPE, Devices.POWER, Devices._ID}, 
+        														new int[] { R.id.name, R.id.type_icon,  R.id.power, R.id.rowid});
 
         devices.setViewBinder(new ViewBinder() {
 			@Override
@@ -103,11 +106,11 @@ public class RestAccess extends ListActivity {
 	private void updateDevice(long id, boolean power) {
         ContentValues values = new ContentValues();
         values.put(Devices.POWER, power);
-        //getContentResolver().update(Devices.CONTENT_URI, values, "id="+id, null);
+        getContentResolver().update(Devices.CONTENT_URI, values, Devices._ID+"="+id, null);
 	}
 	
 	private void deleteDevice(long id) {
-        //getContentResolver().delete(Devices.CONTENT_URI, "id="+id, null);
+        getContentResolver().delete(Devices.CONTENT_URI, Devices._ID+"="+id, null);
 	}
     
     @Override
@@ -122,8 +125,10 @@ public class RestAccess extends ListActivity {
         switch(item.getItemId()) {
             case DELETE_ID:
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                
-                deleteDevice(info.id);
+
+                TextView tvId = ((TextView)info.targetView.findViewById(R.id.rowid));
+                deleteDevice(Long.parseLong(tvId.getText().toString()));
+                //deleteDevice(info.id);
                 displayRecords(mlocation);
                 return true;
         }
