@@ -1,8 +1,10 @@
 package ch.good2go;
 
 import android.app.ListActivity;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -107,7 +109,8 @@ public class RestAccess extends ListActivity {
 	}
 	
 	private void deleteDevice(long id) {
-        //getContentResolver().delete(Devices.CONTENT_URI, "id="+id, null);
+		Uri device = ContentUris.withAppendedId(Devices.CONTENT_URI, id);
+        getContentResolver().delete(Devices.CONTENT_URI, "_id="+id, null);
 	}
     
     @Override

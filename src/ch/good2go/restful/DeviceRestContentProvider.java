@@ -1,5 +1,6 @@
 package ch.good2go.restful;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,17 +25,18 @@ public class DeviceRestContentProvider extends ContentProvider {
 
     private static final String DATABASE_NAME = "devices";
 
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     private static final String DEVICES_TABLE_NAME = "devices";
 
-    public static final String AUTHORITY = "ch.good2go.restful.DeviceRestContentProvider";
+    public static final String AUTHORITY = "ch.good2go.restful.devicerestcontentprovider";
 
     private static final UriMatcher sUriMatcher;
 
     private static final int DEVICES = 1;
     
-    private static final String URL = "http://good2go.ch";
+    //private static final String URL = "http://good2go.ch";
+    private static final String URL = "http://10.0.2.2:3000";
 
     private static HashMap<String, String> devicesProjectionMap;
     
@@ -102,9 +104,10 @@ public class DeviceRestContentProvider extends ContentProvider {
     public int delete(Uri uri, String where, String[] whereArgs) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int count;
+        int restId = getRestId(uri, where);
         switch (sUriMatcher.match(uri)) {
             case DEVICES:
-            	if(RESTMethod.delete(URL+"/devices/" + getRestId(uri))){
+            	if(RESTMethod.delete(URL+"/devices/" + restId)){
             		count = db.delete(DEVICES_TABLE_NAME, where, whereArgs);
             	}else{
             		count = 0;
@@ -117,7 +120,14 @@ public class DeviceRestContentProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
-
+    private int getRestId(Uri uri, String where){
+    	SQLiteDatabase db = dbHelper.getReadableDatabase();
+    	String[] columns = {Devices.REST_ID};
+    	Cursor item = db.query(DEVICES_TABLE_NAME, columns, where, null, null, null, "");
+    	int columnId = item.getColumnIndex(Devices.REST_ID);
+    	String id = item.getString(columnId);
+    	return 1;
+    }
     @Override
     public String getType(Uri uri) {
         switch (sUriMatcher.match(uri)) {
@@ -186,7 +196,7 @@ public class DeviceRestContentProvider extends ContentProvider {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int count;
         String json = DeviceProcessor.toJSON(values);
-        String response = RESTMethod.put(URL+"/devices/" + getRestId(uri), json);
+        String response = RESTMethod.put(URL+"/devices/1", json);
         if(!"".equals(response)){
         	values = DeviceProcessor.parseJSON(response);
         }
@@ -203,10 +213,6 @@ public class DeviceRestContentProvider extends ContentProvider {
         return count;
     }
     
-    private int getRestId(Uri uri){
-    	return Integer.parseInt( uri.getPathSegments().get(0));
-    }
-
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(AUTHORITY, DATABASE_NAME, DEVICES);

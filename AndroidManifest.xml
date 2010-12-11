@@ -16,7 +16,7 @@
             	</intent-filter>
         </activity>
         <provider android:name="ch.good2go.restful.DeviceRestContentProvider"
-		  android:authorities="ch.good2go.restful.DeviceRestContentProvider"/>
+		  android:authorities="ch.good2go.restful.devicerestcontentprovider"/>
     </application>
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest> 
