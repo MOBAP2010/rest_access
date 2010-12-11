@@ -24,7 +24,7 @@ public class DeviceRestContentProvider extends ContentProvider {
 
     private static final String DATABASE_NAME = "devices";
 
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     private static final String DEVICES_TABLE_NAME = "devices";
 
@@ -45,7 +45,7 @@ public class DeviceRestContentProvider extends ContentProvider {
             				 					Devices.NAME + " text not null, " + 
             				 					Devices.LOCATION +" text not null, " + 
             				 					Devices.DEVICE_TYPE +" text not null, " +
-            				 					Devices.POWER + " integer, " +
+            				 					Devices.POWER + " boolean, " +
             				 					Devices.REST_ID + " integer," +
             				 					Devices.CREATED_AT + " datetime," +
             				 					Devices.UPDATED_AT + " datetime );";
@@ -80,7 +80,7 @@ public class DeviceRestContentProvider extends ContentProvider {
 								"values ('" + next.getAsString(Devices.NAME) + "', '" + 
 											  next.getAsString(Devices.LOCATION) + "', '" + 
 											  next.getAsString(Devices.DEVICE_TYPE)+"', '" +
-											  next.getAsInteger(Devices.POWER)+"', '" +
+											  next.getAsBoolean(Devices.POWER)+"', '" +
 											  next.getAsInteger(Devices.REST_ID) + "', '" +
 											  next.get(Devices.CREATED_AT) + "', '" +
 											  next.get(Devices.UPDATED_AT) + "'" +
@@ -215,6 +215,7 @@ public class DeviceRestContentProvider extends ContentProvider {
         devicesProjectionMap.put(Devices._ID, Devices._ID);
         devicesProjectionMap.put(Devices.NAME, Devices.NAME);
         devicesProjectionMap.put(Devices.LOCATION, Devices.LOCATION);
+        devicesProjectionMap.put(Devices.POWER, Devices.POWER);
         devicesProjectionMap.put(Devices.REST_ID, Devices.REST_ID);
         devicesProjectionMap.put(Devices.DEVICE_TYPE, Devices.DEVICE_TYPE);
     }
