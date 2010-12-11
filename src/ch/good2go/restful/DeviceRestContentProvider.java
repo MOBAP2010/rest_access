@@ -1,6 +1,5 @@
 package ch.good2go.restful;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -121,12 +120,14 @@ public class DeviceRestContentProvider extends ContentProvider {
         return count;
     }
     private int getRestId(Uri uri, String where){
-    	SQLiteDatabase db = dbHelper.getReadableDatabase();
-    	String[] columns = {Devices.REST_ID};
-    	Cursor item = db.query(DEVICES_TABLE_NAME, columns, where, null, null, null, "");
+    	Cursor item = query(uri, null, where, null, null);
     	int columnId = item.getColumnIndex(Devices.REST_ID);
-    	String id = item.getString(columnId);
-    	return 1;
+    	int i = -1;
+    	if(item.moveToFirst()){
+    		i = item.getInt(columnId);
+    	}
+    	item.close();
+    	return i;
     }
     @Override
     public String getType(Uri uri) {
@@ -196,7 +197,8 @@ public class DeviceRestContentProvider extends ContentProvider {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int count;
         String json = DeviceProcessor.toJSON(values);
-        String response = RESTMethod.put(URL+"/devices/1", json);
+        int restId = getRestId(uri, where);
+        String response = RESTMethod.put(URL+"/devices/" + restId, json);
         if(!"".equals(response)){
         	values = DeviceProcessor.parseJSON(response);
         }
