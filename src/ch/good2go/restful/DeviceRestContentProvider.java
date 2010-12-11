@@ -215,7 +215,12 @@ public class DeviceRestContentProvider extends ContentProvider {
         return count;
     }
     
-    static {
+    private int getRestId(Uri uri){
+    	String sId = uri.getPathSegments().get(0);   	
+    	return Integer.parseInt(sId);
+    }
+
+	static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(AUTHORITY, DATABASE_NAME, DEVICES);
         
