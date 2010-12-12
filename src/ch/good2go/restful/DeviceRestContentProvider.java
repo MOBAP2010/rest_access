@@ -198,7 +198,8 @@ public class DeviceRestContentProvider extends ContentProvider {
         int count;
         String json = DeviceProcessor.toJSONParameters(values);
         int restId = getRestId(uri, where);
-        String response = RESTMethod.put(URL+"/devices/" + restId, json);
+        //String response = RESTMethod.put(URL+"/devices/" + restId, json);
+        RESTMethod.get(URL + "/devices/" + restId + "/power");
 /*
         if(!"".equals(response)){
         	values = DeviceProcessor.parseJSON(response);
