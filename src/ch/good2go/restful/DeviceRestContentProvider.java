@@ -196,12 +196,14 @@ public class DeviceRestContentProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String where, String[] whereArgs) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int count;
-        String json = DeviceProcessor.toJSON(values);
+        String json = DeviceProcessor.toJSONParameters(values);
         int restId = getRestId(uri, where);
         String response = RESTMethod.put(URL+"/devices/" + restId, json);
+/*
         if(!"".equals(response)){
         	values = DeviceProcessor.parseJSON(response);
         }
+*/
         switch (sUriMatcher.match(uri)) {
             case DEVICES:
                 count = db.update(DEVICES_TABLE_NAME, values, where, whereArgs);
@@ -210,16 +212,10 @@ public class DeviceRestContentProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
-        // TODO: REST-Method for update must be here implemented.
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
     
-    private int getRestId(Uri uri){
-    	String sId = uri.getPathSegments().get(0);   	
-    	return Integer.parseInt(sId);
-    }
-
 	static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(AUTHORITY, DATABASE_NAME, DEVICES);

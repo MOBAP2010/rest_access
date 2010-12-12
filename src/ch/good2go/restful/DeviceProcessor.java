@@ -66,4 +66,17 @@ public class DeviceProcessor {
 		}
 		return root.toString();
 	}
+	
+	public static String toJSONParameters(ContentValues values){
+		JSONObject device = new JSONObject();
+		try {
+			device.putOpt(Devices.NAME, values.get(Devices.NAME));
+			device.putOpt(Devices.LOCATION, values.get(Devices.LOCATION));
+			device.putOpt(Devices.DEVICE_TYPE, values.get(Devices.DEVICE_TYPE));
+			device.putOpt(Devices.POWER, values.get(Devices.POWER));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return device.toString();
+	}
 }
