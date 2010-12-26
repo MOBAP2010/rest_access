@@ -34,8 +34,8 @@ public class DeviceRestContentProvider extends ContentProvider {
 
     private static final int DEVICES = 1;
     
-    //private static final String URL = "http://good2go.ch";
-    private static final String URL = "http://10.0.2.2:3000";
+    private static final String URL = "http://android.good2go.ch";
+    //private static final String URL = "http://10.0.2.2:3000";
 
     private static HashMap<String, String> devicesProjectionMap;
     
